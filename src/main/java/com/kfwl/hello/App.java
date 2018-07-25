@@ -16,7 +16,7 @@ public class App {
 	}
 
 	/**
-	 * 测试
+	 * 测试hello
 	 * 
 	 * @return hello world
 	 */
