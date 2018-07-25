@@ -18,7 +18,7 @@ public class App {
 	/**
 	 * 测试
 	 * 
-	 * @return
+	 * @return hello world
 	 */
 	@GetMapping("/hello")
 	public String hello() {
