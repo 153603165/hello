@@ -1,8 +1,6 @@
 
 node {
 
-    withMaven(maven:'maven') {
-
         stage('Checkout') {
             git url: 'https://github.com/153603165/hello.git', credentialsId: '153603165@qq.com', branch: 'master'
         }
@@ -30,6 +28,5 @@ node {
 
    
 
-    }
 
 }
