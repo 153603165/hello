@@ -37,6 +37,7 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
 					<mainClass>com.kfwl.hello.App</mainClass>
+					<addResources>true</addResources>
 				</configuration>
 				<executions>
 					<execution>
