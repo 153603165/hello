@@ -15,14 +15,29 @@ node {
             env.version = pom.version
         }
 
+    	def imagesName = '192.168.146.133:80/hello/${env.JOB_NAME}:${env.version}.${env.BUILD_NUMBER}' 
         stage('Image') {
-            def app = docker.build "192.168.146.133/hello/hello:${env.BUILD_NUMBER} "
-            //app.push()
+          	docker.withRegistry('http://192.168.146.13:80', 'registry-credentials-id') {
+		      	docker.build(imagesName).push()
+	    	}
+        	//def dockerfile = 'Dockerfile'
+          //  def app = docker.build ("192.168.146.133/hello/${env.JOB_NAME}:${env.version}.${env.BUILD_NUMBER} ","-f ${dockerfile} .")
+           // app.push()
         }
 
-     	 //stage ('Run') {
-          //  docker.image("192.168.146.133/hello:${env.BUILD_NUMBER}").run('-p 2222:8080 -h hello -name hello ')
-        //}
+		//stage ('delete build images') {
+      //      sh "docker rmi 192.168.146.133/hello/${env.JOB_NAME}:${env.BUILD_NUMBER}"
+       // }
+     	 
+     	stage ('Run') {
+     		 // 需要删除旧版本的容器，否则会导致端口占用而无法启动。
+		    try{
+		      sh 'docker rm -f hello'
+		    }catch(e){
+		        // err message
+		    }
+		    docker.image(imagesName).run('-p 2222:8080 --name hello') 
+        }
 
 
    
