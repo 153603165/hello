@@ -1,8 +1,10 @@
 
 node {
 
+    withMaven(maven:'maven') {
+
         stage('Checkout') {
-            git url: 'https://github.com/153603165/hello.git', credentialsId: '153603165@qq.com', branch: 'master'
+            git url: 'https://github.com/153603165/hello.git', branch: 'master'
         }
 
         stage('Build') {
@@ -14,19 +16,17 @@ node {
         }
 
         stage('Image') {
-            def app = docker.build "192.168.146.133/project/hello:${env.version} "
+            def app = docker.build "192.168.146.133/hello:${env.BUILD_NUMBER} "
             app.push()
         }
 
-        stage ('k8sRcRun') {
-           sh 'kubectl create -f /home/fengfan/hello-rc.yml'
+     	 stage ('Run') {
+            docker.image("192.168.146.133/hello:${env.BUILD_NUMBER}").run('-p 2222:8080 -h hello -name hello ')
         }
-        
-        stage('k8sServiceRun'){
-			sh 'kubectl create -f /home/fengfan/hello-svc.yml'            
-        }
+
 
    
 
+    }
 
 }
