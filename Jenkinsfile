@@ -17,12 +17,12 @@ node {
 
         stage('Image') {
             def app = docker.build "192.168.146.133/hello:${env.BUILD_NUMBER} "
-            app.push()
+            //app.push()
         }
 
-     	 stage ('Run') {
-            docker.image("192.168.146.133/hello:${env.BUILD_NUMBER}").run('-p 2222:8080 -h hello -name hello ')
-        }
+     	 //stage ('Run') {
+          //  docker.image("192.168.146.133/hello:${env.BUILD_NUMBER}").run('-p 2222:8080 -h hello -name hello ')
+        //}
 
 
    
