@@ -16,8 +16,7 @@ node {
         }
 
         stage('Image') {
-        	def dockerfile= 'Dockerfile'
-            def app = docker.build ("192.168.146.133/hello/hello:${env.BUILD_NUMBER} ","-f ${docker}")
+            def app = docker.build ("192.168.146.133/hello/hello:${env.BUILD_NUMBER}")
             app.push()
         }
 
