@@ -17,7 +17,7 @@ node {
 
     	def imagesName = '192.168.146.133:80/hello/${env.JOB_NAME}:${env.version}.${env.BUILD_NUMBER}' 
         stage('Image') {
-          	docker.withRegistry('http://192.168.146.13:80', 'registry-credentials-id') {
+          	docker.withRegistry('http://192.168.146.13:80', 'hello') {
 		      	docker.build(imagesName).push()
 	    	}
         	//def dockerfile = 'Dockerfile'
