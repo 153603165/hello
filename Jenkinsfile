@@ -16,10 +16,11 @@ node {
         }
 
         stage('Image') {
-            def app = docker.build ("192.168.146.133/admin/hello:${env.BUILD_NUMBER}")
-            app.push()
-        }
-
+     	   withDockerRegistry(registry: [credentialsId: '3e855734-cbe7-4430-811d-c9216df0769f', url: 'http://192.168.146.133']) {
+	            def app = docker.build ("192.168.146.133/hello/hello:${env.BUILD_NUMBER}")
+	            app.push()
+	        }
+		}
      	 //stage ('Run') {
           //  docker.image("192.168.146.133/hello:${env.BUILD_NUMBER}").run('-p 2222:8080 -h hello -name hello ')
         //}
