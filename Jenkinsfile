@@ -15,9 +15,9 @@ node {
             env.version = pom.version
         }
 
-    	def imagesName = '192.168.146.133:80/hello/hello:${env.version}.${env.BUILD_NUMBER}' 
+    	def imagesName = '192.168.146.133/hello/hello:${env.version}.${env.BUILD_NUMBER}' 
         stage('Image') {
-          	docker.withRegistry('http://192.168.146.13:80') {
+          	docker.withRegistry('http://192.168.146.13') {
 		      	docker.build(imagesName).push()
 	    	}
         	//def dockerfile = 'Dockerfile'
