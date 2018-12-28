@@ -22,7 +22,7 @@ node {
 	        }
 		}
      	stage ('Delete Build Images') {
-     		sh "docker rm -f hello-${env.BUILD_NUMBER}"
+     		//sh "docker rm -f hello-${env.BUILD_NUMBER}"
      		sh "docker rmi -f 192.168.146.133/hello/hello:${env.BUILD_NUMBER}"
         }
 		
