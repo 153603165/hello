@@ -14,18 +14,22 @@ node {
             print pom.version
             env.version = pom.version
         }
-
+		def imagesName='192.168.146.133/hello/hello:${env.BUILD_NUMBER}'
         stage('Image And Push') {
      	   withDockerRegistry(registry: [credentialsId: '3e855734-cbe7-4430-811d-c9216df0769f', url: 'http://192.168.146.133']) {
-	            def app = docker.build ("192.168.146.133/hello/hello:${env.BUILD_NUMBER}")
+	            def app = docker.build (imagesName)
 	            app.push()
 	        }
 		}
      	stage ('Delete Build Images') {
-     		//sh "docker rm -f hello-${env.BUILD_NUMBER}"
-     		sh "docker rmi -f 192.168.146.133/hello/hello:${env.BUILD_NUMBER}"
+     		sh "docker rmi -f hello:${env.version}"
+     		sh "docker rm -f hello"
+     		sh "docker rmi --force `docker images | grep doss-api | awk '{print 3}'`"
         }
-		
+		stage ('Run Images'){
+			docker.image(imagesName).run('-p -d 9090:8080 --name hello')     
+		}
+
 
    
 
