@@ -1,6 +1,10 @@
-FROM frolvlad/alpine-oraclejdk8:slim
+FROM java:8
 VOLUME /tmp
-ADD hello-0.0.1-SNAPSHOT.jar app.jar
-RUN sh -c 'touch /app.jar'
-ENV JAVA_OPTS=""
-ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom"," jar","app.jar"]
+RUN mkdir /app
+ADD testeuraka-0.0.1.jar /app/app.jar
+ADD runboot.sh /app/
+RUN bash -c 'touch /app/app.jar'
+WORKDIR /app
+RUN chmod a+x runboot.sh
+RUN cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && \ echo 'Asia/Shanghai' >/etc/timezone
+EXPOSE 8080
