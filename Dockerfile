@@ -1,7 +1,7 @@
 FROM java:8
 VOLUME /tmp
 RUN mkdir /app
-ADD testeuraka-0.0.1.jar /app/app.jar
+ADD hello-0.0.1-SNAPSHOT.jar /app/app.jar
 ADD runboot.sh /app/
 RUN bash -c 'touch /app/app.jar'
 WORKDIR /app
