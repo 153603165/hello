@@ -26,7 +26,7 @@ node {
      		sh "docker rmi --force `docker images | grep hello | awk '{print \$3}'`"
         }
 		stage ('Run Images'){
-			docker.image("192.168.146.133/hello/hello:${env.BUILD_NUMBER}").run('-p -d 9090:8080 --name hello')           
+			docker.image("192.168.146.133/hello/hello:${env.BUILD_NUMBER}").run('-p 9090:8080 --name hello')           
 		}
     }
 
