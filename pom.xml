@@ -31,13 +31,27 @@
 		</dependency>
 	</dependencies>
 	<build>
+		<resources>
+			<resource>
+				<directory>src/main/java</directory>
+				<includes>
+					<include>**/*.properties</include>
+					<include>**/*.xml</include>
+				</includes>
+			</resource>
+			<resource>
+				<directory>src/main/resources</directory>
+				<includes>
+					<include>**/*.*</include>
+				</includes>
+			</resource>
+		</resources>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
 					<mainClass>com.kfwl.hello.App</mainClass>
-					<addResources>true</addResources>
 				</configuration>
 				<executions>
 					<execution>
@@ -54,7 +68,6 @@
 				<configuration>
 					<imageName>${project.artifactId}:${project.version}</imageName>
 					<dockerDirectory>${project.basedir}/src/main/docker</dockerDirectory>
-					<skipDockerBuild>false</skipDockerBuild>
 					<resources>
 						<resource>
 							<targetPath>/</targetPath>
