@@ -8,7 +8,7 @@ node {
         }
 
         stage('Build') {
-            sh 'mvn clean install'
+            sh 'mvn clean package docker:build -DskipTests'
 
             def pom = readMavenPom file: 'pom.xml'
             print pom.version
