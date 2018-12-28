@@ -24,7 +24,7 @@ node {
      	stage ('Delete Build Images') {
      		sh "docker rmi -f hello:${env.version}"
      		sh "docker rm -f hello"
-     		sh "docker rmi --force `docker images | grep doss-api | awk '{print 3}'`"
+     		sh "docker rmi --force `docker images | grep doss-api | awk '{print \$3}'`"
         }
 		stage ('Run Images'){
 			docker.image("192.168.146.133/hello/hello:${env.BUILD_NUMBER}").run('-p -d 9090:8080 --name hello')           
