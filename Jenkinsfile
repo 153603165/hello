@@ -47,7 +47,11 @@ node {
 		    sh "sed -i 's/<BUILD_TAG>/${env.BUILD_NUMBER}/' k8s.yaml"
 		}
 		stage('Deploy'){
-		    sh "kubectl apply -f k8s.yaml"
+			try{
+				sh " kubectl rolling-update hello-v0.1 --update-period=10s -f k8s.yaml"
+			}catch(e){
+		   	 	sh "kubectl create -f k8s.yaml"
+			}
 		}
 
 
