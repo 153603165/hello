@@ -22,8 +22,29 @@ node {
 	        }
 		}
      	stage ('Delete Build Images') {
-     		//sh "docker rmi -f hello"
-     		sh "docker rmi --force `docker images | grep hello | awk '{print \$3}'`"
+     	
+	     	try{
+	     	    sh "docker rmi -f hello"
+	     	}catch(e){
+	     	    echo '容器不存在'
+	     	}
+	     	
+	     	def cleanImage1="\$(docker images -f 'dangling=true' -q)"
+	     	if("! -n '$cleanImage1'"){
+	     	    echo 'no need none image to clean up images.'
+	     	}else{
+	     	    sh "docker rmi \$(docker images -f 'dangling=true' -q)"
+	     	    echo 'clean none images success'
+	     	}
+
+			def cleanImage2="\$(docker images | grep hello | awk '{print \$3}')"
+	     	if("! -n '$cleanImage2'"){
+	     	    echo 'no need hello image to clean up images.'
+	     	}else{
+	     	    sh "docker rmi \$(docker images -f 'dangling=true' -q)"
+	     	    echo 'clean hello images success'
+	     	}
+	     	
         }
 		stage ('Run Images'){
 			docker.image("192.168.146.133/hello/hello:${env.BUILD_NUMBER}").run('-p 9090:8080 --name hello')           
