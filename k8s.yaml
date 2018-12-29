@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: hello
   labels:
-    app: hello
+    name: hello
 spec:
   replicas: 2
   strategy:  # k8s 默认的 strategy 就是 RollingUpdate， 这里写明出来可以调节细节参数
