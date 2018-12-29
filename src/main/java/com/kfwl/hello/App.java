@@ -24,4 +24,9 @@ public class App {
 	public String hello() {
 		return "hello World";
 	}
+
+	@GetMapping("/k8s")
+	public String k8s() {
+		return "hello k8s";
+	}
 }
