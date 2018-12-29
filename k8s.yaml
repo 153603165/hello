@@ -3,11 +3,17 @@ kind: Deployment
 metadata:
   name: hello
   labels:
-    name: hello
+    app: hello
 spec:
   replicas: 2
+  strategy:  # k8s 默认的 strategy 就是 RollingUpdate， 这里写明出来可以调节细节参数
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1  # 更新时允许最大激增的容器数，默认 replicas 的 1/4 向上取整
+      maxUnavailable: 0  # 更新时允许最大 unavailable 容器数，默认 replicas 的 1/4 向下取整
   selector:
-    name: hello
+    matchLabels: 
+      name: hello
   template:
     metadata:
      labels:
