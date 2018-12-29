@@ -21,34 +21,36 @@ node {
 	            app.push()
 	        }
 		}
-     	stage ('Delete Build Images') {
-     	
+    	 /**stage ('Delete Build Images') {
 	     	try{
 	     	    sh "docker rm -f hello"
 	     	}catch(e){
 	     	    echo '容器不存在'
 	     	}
-	     	
-	     	def cleanImage1="\$(docker images -f 'dangling=true' -q)"
-	     	if("! -n '$cleanImage1'"){
-	     	    echo 'no need none image to clean up images. '
-	     	}else{
-	     	    sh "docker rmi \$(docker images -f 'dangling=true' -q)"
-	     	    echo 'clean none images success'
-	     	}
 
-			def cleanImage2="\$(docker images | grep hello | awk '{print \$3}')"
-	     	if("! -n '$cleanImage2'"){
-	     	    echo 'no need hello image to clean up images.'
-	     	}else{
-	     	    sh "docker rmi \$(docker images -f 'dangling=true' -q)"
-	     	    echo 'clean hello images success'
+	     	try{
+	     	   sh "docker rmi --force `docker images | grep hello | awk '{print \$3}'`"
+	     	}catch(e){
+	     	    echo '镜像不存在'
+	     	    
 	     	}
-	     	
+	     	try{
+	     	   sh "docker rmi \$(docker images -f 'dangling=true' -q)"
+	     	}catch(e){
+	     	    echo 'none镜像不存在'
+	     	}
         }
 		stage ('Run Images'){
 			docker.image("192.168.146.133/hello/hello:${env.BUILD_NUMBER}").run('-p 9090:8080 --name hello')           
+		}*/	
+		stage('Change Yaml'){
+		    sh "sed -i 's/<BUILD_TAG>/${build_tag}/' /home/fengfan/kubernetes/hello-rc.yaml"
 		}
+		stage('Deploy'){
+		    sh "kubectl apply -f k8s.yaml"
+		}
+
+
     }
 
 }
