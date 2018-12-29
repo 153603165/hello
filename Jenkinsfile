@@ -9,10 +9,6 @@ node {
 
         stage('Build') {
             sh 'mvn clean package docker:build -DskipTests'
-
-            def pom = readMavenPom file: 'pom.xml'
-            print pom.version
-            env.version = pom.version
         }
 
         stage('Image And Push') {
