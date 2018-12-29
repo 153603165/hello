@@ -24,7 +24,7 @@ node {
      	stage ('Delete Build Images') {
      	
 	     	try{
-	     	    sh "docker rmi -f hello"
+	     	    sh "docker rm -f hello"
 	     	}catch(e){
 	     	    echo '容器不存在'
 	     	}
