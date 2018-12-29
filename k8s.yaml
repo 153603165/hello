@@ -1,20 +1,17 @@
-apiVersion: v1
+apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: hello-v0.1
+  name: hello
   labels:
-    app: hello
-    var: v0.1
+    name: hello
 spec:
   replicas: 2
   selector:
-    app: hello
-    var: v0.1
+    name: hello
   template:
     metadata:
      labels:
-       app: hello
-       var: v0.1
+       name: hello
     spec:
      containers:
      - name: hello
