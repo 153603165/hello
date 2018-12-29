@@ -44,7 +44,7 @@ node {
 			docker.image("192.168.146.133/hello/hello:${env.BUILD_NUMBER}").run('-p 9090:8080 --name hello')           
 		}*/	
 		stage('Change Yaml'){
-		    sh "sed -i 's/<BUILD_TAG>/${build_tag}/' /home/fengfan/kubernetes/hello-rc.yaml"
+		    sh "sed -i 's/<BUILD_TAG>/${build_tag}/' /home/fengfan/kubernetes/hello-rc.yml"
 		}
 		stage('Deploy'){
 		    sh "kubectl apply -f k8s.yaml"
