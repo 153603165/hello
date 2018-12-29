@@ -31,7 +31,7 @@ node {
 	     	
 	     	def cleanImage1="\$(docker images -f 'dangling=true' -q)"
 	     	if("! -n '$cleanImage1'"){
-	     	    echo 'no need none image to clean up images.'
+	     	    echo 'no need none image to clean up images. '
 	     	}else{
 	     	    sh "docker rmi \$(docker images -f 'dangling=true' -q)"
 	     	    echo 'clean none images success'
