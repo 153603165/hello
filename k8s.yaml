@@ -21,7 +21,7 @@ spec:
     spec:
      containers:
      - name: hello
-       image: 192.168.146.133/hello/hello:<BUILD_TAG>
+       image: 192.168.0.181/hello/hello:<BUILD_TAG>
        imagePullPolicy: IfNotPresent
        ports:
        - containerPort: 8080

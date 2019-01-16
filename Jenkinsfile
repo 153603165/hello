@@ -12,8 +12,8 @@ node {
         }
 
         stage('Image And Push') {
-     	   withDockerRegistry(registry: [credentialsId: '3e855734-cbe7-4430-811d-c9216df0769f', url: 'http://192.168.146.133']) {
-	            def app = docker.build ("192.168.146.133/hello/hello:${env.BUILD_NUMBER}")
+     	   withDockerRegistry(registry: [credentialsId: '3e855734-cbe7-4430-811d-c9216df0769f', url: 'http://192.168.0.181']) {
+	            def app = docker.build ("192.168.0.181/hello/hello:${env.BUILD_NUMBER}")
 	            app.push()
 	        }
 		}
