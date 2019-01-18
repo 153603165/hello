@@ -4,7 +4,7 @@ node {
     withMaven(maven:'maven') {
 
         stage('Checkout') {
-            git url: 'https://github.com/153603165/hello.git', branch: 'master', credentialsId: '6438e28b-a416-4c9c-8398-3ef55ddc9f80'
+            git url: 'https://github.com/153603165/hello.git', branch: 'master'
         }
 
         stage('Build') {
